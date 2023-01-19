@@ -10,6 +10,8 @@ public class Block {
      */
     private final long timestamp;
 
+    public static final String INITIAL_HASH = "0";
+
     public Block(String data, String previousHash){
         this.data = data;
         this.previousHash = previousHash;
@@ -20,5 +22,15 @@ public class Block {
 
     public String calculateHash() {
         return StringUtil.applySha256(previousHash + timestamp + data);
+    }
+
+    @Override
+    public String toString() {
+        return "Block{" +
+                "hash='" + hash + '\'' +
+                ", previousHash='" + previousHash + '\'' +
+                ", data='" + data + '\'' +
+                ", timestamp=" + timestamp +
+                '}';
     }
 }
