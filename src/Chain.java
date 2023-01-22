@@ -33,7 +33,7 @@ public class Chain {
 
         // Loop through the whole chain to check the hashes are correct
         for (int i = 1; i < blockChain.size(); i++) {
-            previousBlock = blockChain.get(i-1);
+            previousBlock = blockChain.get(i - 1);
             currentBlock = blockChain.get(i);
 
             // Compare the registered hash and the calculated hash

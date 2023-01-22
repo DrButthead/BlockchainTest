@@ -2,18 +2,17 @@ import java.util.Date;
 
 public class Block {
 
-    public String hash;
-    public String previousHash;
+    public static final String INITIAL_HASH = "0";
     private final String data;
     /**
      * Number of millis since 1/1/1970
      */
     private final long timestamp;
+    public String hash;
+    public String previousHash;
     private int nonce;
 
-    public static final String INITIAL_HASH = "0";
-
-    public Block(String data, String previousHash){
+    public Block(String data, String previousHash) {
         this.data = data;
         this.previousHash = previousHash;
         this.timestamp = new Date().getTime();
@@ -37,11 +36,6 @@ public class Block {
 
     @Override
     public String toString() {
-        return "Block{" +
-                "hash='" + hash + '\'' +
-                ", previousHash='" + previousHash + '\'' +
-                ", data='" + data + '\'' +
-                ", timestamp=" + timestamp +
-                '}';
+        return "Block{" + "hash='" + hash + '\'' + ", previousHash='" + previousHash + '\'' + ", data='" + data + '\'' + ", timestamp=" + timestamp + '}';
     }
 }
