@@ -9,8 +9,8 @@ public class Logger {
         return new Date() + "";
     }
 
-    private String formatMessage(String message, String caller, String level) {
-        return getTimeStamp() + " [" + level + "] (" + caller + ") " + message;
+    private String formatMessage(String message, String level) {
+        return getTimeStamp() + " [" + level + "] (" + getCallerMethodName() + ") " + message;
     }
 
     private String getCallerMethodName() {
@@ -37,10 +37,10 @@ public class Logger {
     }
 
     public void log(String message) {
-        System.out.println(formatMessage(message, getCallerMethodName(), "INFO"));
+        System.out.println(formatMessage(message, "INFO"));
     }
 
     public void error(String message) {
-        System.err.println(formatMessage(message, getCallerMethodName(), "ERROR"));
+        System.err.println(formatMessage(message, "ERROR"));
     }
 }
