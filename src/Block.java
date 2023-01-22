@@ -1,7 +1,6 @@
 import java.util.Date;
 
 public class Block {
-
     public static final String INITIAL_HASH = "0";
     private final String data;
     /**
@@ -10,6 +9,7 @@ public class Block {
     private final long timestamp;
     public String hash;
     public String previousHash;
+    private final Logger logger = new Logger();
     private int nonce;
 
     public Block(String data, String previousHash) {
@@ -31,7 +31,7 @@ public class Block {
             nonce++;
             hash = calculateHash();
         }
-        System.out.println("Block mined!");
+        logger.log("Block mined!");
     }
 
     @Override

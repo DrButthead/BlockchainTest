@@ -6,6 +6,7 @@ import java.util.List;
 public class Chain {
     public int difficulty;
     public List<Block> blockChain = new ArrayList<>();
+    private final Logger logger = new Logger();
 
     public Chain(int difficulty) {
         this.difficulty = difficulty;
@@ -38,19 +39,19 @@ public class Chain {
 
             // Compare the registered hash and the calculated hash
             if (!currentBlock.hash.equals(currentBlock.calculateHash())) {
-                System.out.println("Current hashes do not match!");
+                logger.error("Current hashes do not match!");
                 return false;
             }
 
             // Compare previous registered hash and the calculated hash
             if (!previousBlock.hash.equals(currentBlock.previousHash)) {
-                System.out.println("Previous hashes to not match!");
+                logger.error("Previous hashes to not match!");
                 return false;
             }
 
             // Make sure each hash starts with difficulty * '0'
             if (!currentBlock.hash.substring(0, difficulty).equals(hashTarget)) {
-                System.out.println("This block hasn't been mined");
+                logger.error("This block hasn't been mined");
                 return false;
 
             }

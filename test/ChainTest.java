@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ChainTest {
+    private final Logger logger = new Logger();
 
     @Test
     void add() {
@@ -13,8 +14,8 @@ class ChainTest {
         blockChain.add("Second");
         blockChain.add("third");
 
-        System.out.println(blockChain);
-        System.out.println(blockChain.toJsonString());
+        logger.log(blockChain);
+        logger.log(blockChain.toJsonString());
     }
 
     @Test
@@ -41,7 +42,7 @@ class ChainTest {
         changeMe.mineBlock(difficulty);
         blockChain.blockChain.set(1, changeMe);
 
-        // The previousHash of the next block wont match up
+        // The previousHash of the next block won't match up
         assertFalse(blockChain.isChainValid());
     }
 }

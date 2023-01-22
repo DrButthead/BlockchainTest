@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class BlockTest {
+    private final Logger logger = new Logger();
 
     private int difficulty;
     private Block genesisBlock;
@@ -25,13 +26,13 @@ class BlockTest {
     @Test
     void testChain() {
         Block genesisBlock = new Block("Hi, I'm the first block!!", "0");
-        System.out.println("Hash for block 1: " + genesisBlock.hash);
+        logger.log("Hash for block 1: " + genesisBlock.hash);
 
         Block secondBlock = new Block("This is number 2", genesisBlock.hash);
-        System.out.println("Hash for block 2: " + secondBlock.hash);
+        logger.log("Hash for block 2: " + secondBlock.hash);
 
         Block thirdBlock = new Block("Number 3 goes here", secondBlock.hash);
-        System.out.println("Hash for block 3: " + thirdBlock.hash);
+        logger.log("Hash for block 3: " + thirdBlock.hash);
 
         assertNotEquals(genesisBlock.hash, secondBlock.hash);
         assertNotEquals(genesisBlock.hash, thirdBlock.hash);
@@ -43,20 +44,20 @@ class BlockTest {
 
     @Test
     void mineBlock() {
-        difficulty = 5;
+        difficulty = 3;
         String target = StringUtil.repeat('0', difficulty);
 
-        System.out.println("Trying to mine genesis block...");
+        logger.log("Trying to mine genesis block...");
         genesisBlock.mineBlock(difficulty);
-        System.out.println(genesisBlock);
+        logger.log(genesisBlock);
 
         String genesisStart = genesisBlock.hash.substring(0, difficulty);
         assertEquals(genesisStart, target);
 
         Block secondBlock = new Block("This is the second block", genesisBlock.hash);
-        System.out.println("Trying to mine second block...");
+        logger.log("Trying to mine second block...");
         secondBlock.mineBlock(difficulty);
-        System.out.println(secondBlock);
+        logger.log(secondBlock);
 
         String secondStart = secondBlock.hash.substring(0, difficulty);
         assertEquals(secondStart, target);
