@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Chain {
+    public int difficulty;
     public List<Block> blockChain = new ArrayList<>();
 
-    public Chain() {}
+    public Chain(int difficulty) {
+        this.difficulty = difficulty;
+    }
 
     public void add(String data) {
         String previousHash;
@@ -18,12 +21,15 @@ public class Chain {
             previousHash = previousBlock.hash;
         }
 
-        blockChain.add(new Block(data, previousHash));
+        Block newBlock = new Block(data, previousHash);
+        newBlock.mineBlock(difficulty);
+        blockChain.add(newBlock);
     }
 
     public Boolean isChainValid() {
         Block previousBlock;
         Block currentBlock;
+        String hashTarget = StringUtil.repeat('0', difficulty);
 
         // Loop through the whole chain to check the hashes are correct
         for (int i = 1; i < blockChain.size(); i++) {
@@ -40,6 +46,13 @@ public class Chain {
             if (!previousBlock.hash.equals(currentBlock.previousHash)) {
                 System.out.println("Previous hashes to not match!");
                 return false;
+            }
+
+            // Make sure each hash starts with difficulty * '0'
+            if (!currentBlock.hash.substring(0, difficulty).equals(hashTarget)) {
+                System.out.println("This block hasn't been mined");
+                return false;
+
             }
         }
         return true;

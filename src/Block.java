@@ -9,6 +9,7 @@ public class Block {
      * Number of millis since 1/1/1970
      */
     private final long timestamp;
+    private int nonce;
 
     public static final String INITIAL_HASH = "0";
 
@@ -21,7 +22,17 @@ public class Block {
     }
 
     public String calculateHash() {
-        return StringUtil.applySha256(previousHash + timestamp + data);
+        return StringUtil.applySha256(previousHash + timestamp + nonce + data);
+    }
+
+    public void mineBlock(int difficulty) {
+        // Create a String with difficulty * "0"
+        String target = StringUtil.repeat('0', difficulty);
+        while (!hash.substring(0, difficulty).equals(target)) {
+            nonce++;
+            hash = calculateHash();
+        }
+        System.out.println("Block mined!");
     }
 
     @Override

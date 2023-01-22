@@ -21,4 +21,8 @@ public class StringUtil {
             throw new RuntimeException(ex);
         }
     }
+
+    public static String repeat(char chr, int times) {
+        return new String(new char[times]).replace('\0', chr);
+    }
 }
